@@ -1,0 +1,74 @@
+# ========================
+# Unity Specific .gitignore
+# ========================
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+
+# Unity generated meta files
+*.pidb
+*.booproj
+*.suo
+*.user
+*.userprefs
+*.unityproj
+*.dll
+*.exe
+*.apk
+*.jar
+*.pdb
+*.mdb
+
+# Crashlytics generated file
+crashlytics-build.properties
+
+# Rider
+.idea/
+*.sln.iml
+
+# VSCode
+.vscode/
+.history/
+
+# JetBrains Rider
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS generated files
+.DS_Store
+*.swp
+Thumbs.db
+desktop.ini
+
+# Auto-generated JSON caches
+*.csproj
+*.sln
+*.vcxproj
+*.pidb.meta
+*.svd
+*.db
+
+# Unity Asset Store tools
+/Assets/AssetStoreTools*
+
+# Build output (if exporting via script)
+ExportedObj/
+*.unitypackage
+
+# Logs
+*.log
+
+# Addressable Asset Data
+/Assets/AddressableAssetsData/*/AssetBundles/
