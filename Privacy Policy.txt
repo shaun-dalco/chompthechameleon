@@ -1,0 +1,15 @@
+Privacy Policy
+
+Effective Date: 29/06/2025
+
+Thank you for using our app.
+
+This app was developed using Unity. We do not collect, store, or share any personal information from users.
+
+However, because the app is built with Unity, it may include Unity’s own analytics or data collection as part of its platform. Please refer to Unity’s privacy policy for more information on how Unity handles data:
+https://unity.com/legal/privacy-policy
+
+If you have any questions or concerns, feel free to contact us at:
+shaundalco@hotmail.com
+
+By using this app, you agree to this privacy policy.
