@@ -27,6 +27,8 @@ public class ChameleonTongue : MonoBehaviour
     public Transform tongueStartPos;
     private bool playingHeadAnim = false;
 
+    public SoundManager soundManager;
+
 
 
     void Update()
@@ -36,6 +38,7 @@ public class ChameleonTongue : MonoBehaviour
             if (!tongueExtended)
             {
                 TryExtendTongue();
+                soundManager.PlaySound("tongue");
             }
             else
             {
@@ -57,6 +60,18 @@ public class ChameleonTongue : MonoBehaviour
             } else {
                 head.sprite = defaultHead;
             }
+        }
+    }
+
+    public void TongueButtonPressed() {
+        if (!tongueExtended)
+        {
+            TryExtendTongue();
+            soundManager.PlaySound("tongue");
+        }
+        else
+        {
+            TryPullPeach();
         }
     }
 
@@ -91,6 +106,7 @@ public class ChameleonTongue : MonoBehaviour
     {
         playingHeadAnim = true;
         head.sprite = openHead;
+        soundManager.PlaySound("chomp");
         yield return new WaitForSeconds(0.1f);
         head.sprite = defaultHead;
         playingHeadAnim = false;

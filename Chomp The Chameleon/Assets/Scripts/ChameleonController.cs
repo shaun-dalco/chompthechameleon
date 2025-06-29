@@ -11,12 +11,22 @@ public class ChameleonController : MonoBehaviour
     private Vector2Int[] segmentGridPos = new Vector2Int[3];
     private Vector2Int facing = Vector2Int.right;
 
+    private Vector2Int queuedInput = Vector2Int.zero;
+    public bool isInputFromUI = false;
+
+    public Transform spawnPoint;
+
+
     void Start()
     {
         // Initial positions (head center, others left of it)
-        segmentGridPos[2] = new Vector2Int(5, 5); // Head
+        /*segmentGridPos[2] = new Vector2Int(5, 5); // Head
         segmentGridPos[1] = new Vector2Int(4, 5); // Mid
-        segmentGridPos[0] = new Vector2Int(3, 5); // Tail
+        segmentGridPos[0] = new Vector2Int(3, 5); // Tail*/
+
+        segmentGridPos[2] = new Vector2Int((int)spawnPoint.position.x, (int)spawnPoint.position.y);
+        segmentGridPos[1] = new Vector2Int((int)spawnPoint.position.x -1, (int)spawnPoint.position.y);
+        segmentGridPos[0] = new Vector2Int((int)spawnPoint.position.x -2, (int)spawnPoint.position.y);
 
         UpdateSegmentWorldPositions();
     }
@@ -30,43 +40,82 @@ public class ChameleonController : MonoBehaviour
             ApplyGravity();
         }
     }
+    
+
+    public void OnArrowPressed(string direction)
+    {
+        isInputFromUI = true;
+
+        switch (direction)
+        {
+            case "left":
+                queuedInput = Vector2Int.left;
+                facing = Vector2Int.left;
+                GetComponent<ChameleonTongue>()?.CancelTongue();
+                break;
+            case "right":
+                queuedInput = Vector2Int.right;
+                facing = Vector2Int.right;
+                GetComponent<ChameleonTongue>()?.CancelTongue();
+                break;
+            case "up":
+                queuedInput = Vector2Int.up;
+                GetComponent<ChameleonTongue>()?.CancelTongue();
+                break;
+            case "down":
+                queuedInput = Vector2Int.down;
+                GetComponent<ChameleonTongue>()?.CancelTongue();
+                break;
+            case "chomp":
+                queuedInput = Vector2Int.zero;
+                GetComponent<ChameleonTongue>().TongueButtonPressed();
+                break;
+        }
+    }
+
 
     bool HandleInput()
     {
         Vector2Int inputDir = Vector2Int.zero;
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (isInputFromUI)
         {
-            inputDir = Vector2Int.left;
-            facing = Vector2Int.left;
-            GetComponent<ChameleonTongue>()?.CancelTongue();
+            inputDir = queuedInput;
+            isInputFromUI = false; // reset after using
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else
         {
-            inputDir = Vector2Int.right;
-            facing = Vector2Int.right;
-            GetComponent<ChameleonTongue>()?.CancelTongue();
-        }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            inputDir = Vector2Int.up;
-            GetComponent<ChameleonTongue>()?.CancelTongue();
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            inputDir = Vector2Int.down;
-            GetComponent<ChameleonTongue>()?.CancelTongue();
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                inputDir = Vector2Int.left;
+                facing = Vector2Int.left;
+                GetComponent<ChameleonTongue>()?.CancelTongue();
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                inputDir = Vector2Int.right;
+                facing = Vector2Int.right;
+                GetComponent<ChameleonTongue>()?.CancelTongue();
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                inputDir = Vector2Int.up;
+                GetComponent<ChameleonTongue>()?.CancelTongue();
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                inputDir = Vector2Int.down;
+                GetComponent<ChameleonTongue>()?.CancelTongue();
+            }
         }
 
         if (inputDir != Vector2Int.zero)
         {
             Vector2Int newHeadPos = segmentGridPos[2] + inputDir;
 
-            // Check if new head position is inside the body
             if (IsPositionOccupiedByBody(newHeadPos))
                 return false;
 
-            // Check wall collision
             if (!solidTilemap.HasTile((Vector3Int)newHeadPos))
             {
                 AdvanceBody(newHeadPos);
@@ -77,6 +126,7 @@ public class ChameleonController : MonoBehaviour
 
         return false;
     }
+
 
     public bool IsPositionOccupiedByBody(Vector2Int pos)
     {
