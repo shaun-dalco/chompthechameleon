@@ -1,23 +1,23 @@
 # ninja log v5
-10	4066	7728889568571125	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	e7845e170873414e
-115	908	7728889536894352	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	a7a6f422ffc5f345
-908	1513	7728889543083885	C:/Users/Shaun/Documents/GitHub/chompthechameleon/Chomp The Chameleon/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4v3n651e/obj/arm64-v8a/libswappywrapper.so	18f915483692ac85
-52	3540	7728889563168411	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	8e0bb325649cc688
-106	3640	7728889564218093	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	ad008f6f698974ef
-67	3505	7728889562407928	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	42fa9f4c56ebb21f
-80	3531	7728889562972022	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	f1297546302d0c90
-44	3706	7728889564884650	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	2e46c68edca32fe
-34	3484	7728889562417932	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	4ee0c9eff0240d07
-97	3940	7728889567246429	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	51351773a0633986
-4066	4240	7728889570034524	C:/Users/Shaun/Documents/GitHub/chompthechameleon/Chomp The Chameleon/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4v3n651e/obj/arm64-v8a/libgame.so	6ea87ece3401ed4a
-160	685	7735874495020718	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	a7a6f422ffc5f345
-685	1103	7735874499774048	C:/Users/Shaun/Documents/GitHub/chompthechameleon/Chomp The Chameleon/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4v3n651e/obj/arm64-v8a/libswappywrapper.so	18f915483692ac85
-126	1701	7735874505594097	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	42fa9f4c56ebb21f
-25	1731	7735874506022583	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	8e0bb325649cc688
-45	1741	7735874506057766	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	f1297546302d0c90
-136	1846	7735874507182000	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	ad008f6f698974ef
-8	1878	7735874507504020	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	4ee0c9eff0240d07
-16	1943	7735874508194849	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	2e46c68edca32fe
-57	2096	7735874509711896	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	51351773a0633986
 34	2224	7735874511036904	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	e7845e170873414e
+160	685	7735874495020718	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	a7a6f422ffc5f345
+136	1846	7735874507182000	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	ad008f6f698974ef
+685	1103	7735874499774048	C:/Users/Shaun/Documents/GitHub/chompthechameleon/Chomp The Chameleon/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4v3n651e/obj/arm64-v8a/libswappywrapper.so	18f915483692ac85
+25	1731	7735874506022583	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	8e0bb325649cc688
+126	1701	7735874505594097	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	42fa9f4c56ebb21f
+16	1943	7735874508194849	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	2e46c68edca32fe
+45	1741	7735874506057766	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	f1297546302d0c90
+8	1878	7735874507504020	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	4ee0c9eff0240d07
+57	2096	7735874509711896	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	51351773a0633986
 2224	2407	7735874512864805	C:/Users/Shaun/Documents/GitHub/chompthechameleon/Chomp The Chameleon/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4v3n651e/obj/arm64-v8a/libgame.so	6ea87ece3401ed4a
+82	441	7735878526177327	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	a7a6f422ffc5f345
+6	2029	7735878541969588	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	4ee0c9eff0240d07
+16	2417	7735878543921077	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	8e0bb325649cc688
+442	2527	7735878544658904	C:/Users/Shaun/Documents/GitHub/chompthechameleon/Chomp The Chameleon/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4v3n651e/obj/arm64-v8a/libswappywrapper.so	18f915483692ac85
+52	2545	7735878547324521	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	f1297546302d0c90
+61	2547	7735878546887635	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	42fa9f4c56ebb21f
+69	2586	7735878548117931	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	ad008f6f698974ef
+25	2651	7735878548781044	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	2e46c68edca32fe
+42	2917	7735878551469435	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	51351773a0633986
+34	3023	7735878552603024	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	e7845e170873414e
+3023	3142	7735878553861545	C:/Users/Shaun/Documents/GitHub/chompthechameleon/Chomp The Chameleon/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4v3n651e/obj/arm64-v8a/libgame.so	6ea87ece3401ed4a
