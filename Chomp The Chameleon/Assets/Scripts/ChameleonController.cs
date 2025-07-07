@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
+
 
 public class ChameleonController : MonoBehaviour
 {
-    public Transform[] bodySegments; // 0 = tail, 1 = mid, 2 = head
     public Grid grid;
     public Tilemap solidTilemap;
 
     // Grid positions for each segment
-    private Vector2Int[] segmentGridPos = new Vector2Int[3];
     private Vector2Int facing = Vector2Int.right;
 
     private Vector2Int queuedInput = Vector2Int.zero;
@@ -16,20 +16,32 @@ public class ChameleonController : MonoBehaviour
 
     public Transform spawnPoint;
 
+    public List<Transform> bodySegments = new List<Transform>();
+    private List<Vector2Int> segmentGridPos = new List<Vector2Int>();
+
+    public GameObject bodySegmentPrefab;
+
+    public int pendingGrowths = 0;
+
+
+
 
     void Start()
     {
-        // Initial positions (head center, others left of it)
-        /*segmentGridPos[2] = new Vector2Int(5, 5); // Head
-        segmentGridPos[1] = new Vector2Int(4, 5); // Mid
-        segmentGridPos[0] = new Vector2Int(3, 5); // Tail*/
+        segmentGridPos.Add(new Vector2Int((int)spawnPoint.position.x - 2, (int)spawnPoint.position.y));
+        segmentGridPos.Add(new Vector2Int((int)spawnPoint.position.x - 1, (int)spawnPoint.position.y));
+        segmentGridPos.Add(new Vector2Int((int)spawnPoint.position.x, (int)spawnPoint.position.y));
 
-        segmentGridPos[2] = new Vector2Int((int)spawnPoint.position.x, (int)spawnPoint.position.y);
-        segmentGridPos[1] = new Vector2Int((int)spawnPoint.position.x -1, (int)spawnPoint.position.y);
-        segmentGridPos[0] = new Vector2Int((int)spawnPoint.position.x -2, (int)spawnPoint.position.y);
+        // Create visual segments for each grid position
+        /*foreach (var pos in segmentGridPos)
+        {
+            GameObject newSegment = Instantiate(bodySegmentPrefab, GridToWorld(pos), Quaternion.identity);
+            bodySegments.Add(newSegment.transform);
+        }*/
 
         UpdateSegmentWorldPositions();
     }
+
 
     void Update()
     {
@@ -111,7 +123,7 @@ public class ChameleonController : MonoBehaviour
 
         if (inputDir != Vector2Int.zero)
         {
-            Vector2Int newHeadPos = segmentGridPos[2] + inputDir;
+            Vector2Int newHeadPos = segmentGridPos[segmentGridPos.Count - 1] + inputDir;
 
             if (IsPositionOccupiedByBody(newHeadPos))
                 return false;
@@ -120,27 +132,39 @@ public class ChameleonController : MonoBehaviour
             {
                 AdvanceBody(newHeadPos);
                 UpdateSegmentWorldPositions();
+
                 return true;
+
             }
         }
 
         return false;
     }
 
-
     public bool IsPositionOccupiedByBody(Vector2Int pos)
     {
-        return pos == segmentGridPos[0] || pos == segmentGridPos[1];
+        for (int i = 0; i < segmentGridPos.Count - 1; i++) // exclude head
+        {
+            if (segmentGridPos[i] == pos)
+                return true;
+        }
+        return false;
     }
 
     void ApplyGravity()
     {
         if (!IsAnySegmentSupported())
         {
-            for (int i = 0; i < segmentGridPos.Length; i++)
+            /*for (int i = 0; i < segmentGridPos.Length; i++)
+            {
+                segmentGridPos[i] += Vector2Int.down;
+            }*/
+
+            for (int i = 0; i < segmentGridPos.Count; i++)
             {
                 segmentGridPos[i] += Vector2Int.down;
             }
+
 
             UpdateSegmentWorldPositions();
         }
@@ -177,24 +201,61 @@ public class ChameleonController : MonoBehaviour
 
     void AdvanceBody(Vector2Int newHeadGridPos)
     {
-        // Shift tail → mid, mid → head
-        segmentGridPos[0] = segmentGridPos[1];
-        segmentGridPos[1] = segmentGridPos[2];
-        segmentGridPos[2] = newHeadGridPos;
+        if (pendingGrowths > 0)
+        {
+            // Save old head position
+            Vector2Int oldHead = segmentGridPos[segmentGridPos.Count - 1];
+
+            // Insert old head as new body segment
+            segmentGridPos.Insert(segmentGridPos.Count - 1, oldHead);
+
+            // Create visual body segment at old head's position
+            GameObject newSegment = Instantiate(bodySegmentPrefab, GridToWorld(oldHead), Quaternion.identity);
+            bodySegments.Insert(bodySegments.Count - 1, newSegment.transform);
+
+            // Replace head with new head position
+            segmentGridPos[segmentGridPos.Count - 1] = newHeadGridPos;
+
+            pendingGrowths--;
+        }
+        else
+        {
+            // Follow-the-leader logic: tail follows up toward head
+            for (int i = 0; i < segmentGridPos.Count - 1; i++)
+            {
+                segmentGridPos[i] = segmentGridPos[i + 1];
+            }
+
+            // Head moves to new position
+            segmentGridPos[segmentGridPos.Count - 1] = newHeadGridPos;
+        }
+
+
     }
+
+
+
+
 
     void UpdateSegmentWorldPositions()
     {
-        for (int i = 0; i < bodySegments.Length; i++)
+        if (segmentGridPos.Count != bodySegments.Count)
+        {
+            Debug.LogError("Mismatch between segmentGridPos and bodySegments. This will break movement visuals.");
+            return;
+        }
+
+        for (int i = 0; i < bodySegments.Count; i++)
         {
             bodySegments[i].position = GridToWorld(segmentGridPos[i]);
 
-            // Flip sprite if facing left
             Vector3 scale = bodySegments[i].localScale;
             scale.x = (facing == Vector2Int.left) ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
             bodySegments[i].localScale = scale;
         }
     }
+
+
 
     Vector3 GridToWorld(Vector2Int gridPos)
     {
@@ -204,12 +265,23 @@ public class ChameleonController : MonoBehaviour
 
     public Vector2Int GetHeadGridPos()
     {
-        return segmentGridPos[2];
+        return segmentGridPos[segmentGridPos.Count - 1];
     }
+
 
     public Vector2Int GetFacing()
     {
         return facing;
     }
+
+
+    public void Grow()
+    {
+        Debug.Log("Grow called");
+        pendingGrowths++;
+    }
+
+
+
 
 }

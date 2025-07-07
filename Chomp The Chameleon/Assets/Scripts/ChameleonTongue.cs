@@ -95,6 +95,25 @@ public class ChameleonTongue : MonoBehaviour
                     tongueLine.positionCount = 0;
                 }
 
+                Debug.Log("PEACH EATEEEEEEN");
+
+                StartCoroutine(ChompAnimation());
+                return;
+            }
+            if(hit != null && hit.CompareTag("Watermelon"))
+            {
+                Destroy(hit.gameObject);
+
+                if (hit.gameObject == latchedPeach)
+                {
+                    latchedPeach = null;
+                    tongueExtended = false;
+                    tongueLine.positionCount = 0;
+                }
+
+                Debug.Log("GROWWW");
+                GetComponent<ChameleonController>().Grow();
+
                 StartCoroutine(ChompAnimation());
                 return;
             }
@@ -136,7 +155,7 @@ public class ChameleonTongue : MonoBehaviour
                 Debug.Log("Hit something: " + hit.name);
             }
 
-            if (hit != null && hit.CompareTag("Peach"))
+            if (hit != null && (hit.CompareTag("Peach") || hit.CompareTag("Watermelon")))
             {
                 tongueExtended = true;
                 latchedPeach = hit.gameObject;
@@ -220,7 +239,7 @@ public class ChameleonTongue : MonoBehaviour
             return;
 
         Collider2D other = Physics2D.OverlapPoint(GridToWorld(nextPos));
-        if (other != null && other.CompareTag("Peach"))
+        if (other != null && (other.CompareTag("Peach") || other.CompareTag("Watermelon")))
             return;
 
         // Move peach
@@ -249,6 +268,9 @@ public class ChameleonTongue : MonoBehaviour
 
     void EatLatchedPeach()
     {
+        if(latchedPeach.tag == "Watermelon") {
+            GetComponent<ChameleonController>().Grow();
+        }
         Destroy(latchedPeach);
         latchedPeach = null;
         tongueExtended = false;
