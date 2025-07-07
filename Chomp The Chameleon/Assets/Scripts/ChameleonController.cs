@@ -191,7 +191,7 @@ public class ChameleonController : MonoBehaviour
 
         // Check if peach exists below (support)
         Collider2D hit = Physics2D.OverlapPoint(GridToWorld(below));
-        if (hit != null && hit.CompareTag("Peach"))
+        if (hit != null && (hit.CompareTag("Peach") || hit.CompareTag("Watermelon")))
             return true;
 
         return false;
