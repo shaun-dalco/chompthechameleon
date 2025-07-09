@@ -26,8 +26,9 @@ public class LevelMonitor : MonoBehaviour
     void CheckForVictory()
     {
         GameObject[] peaches = GameObject.FindGameObjectsWithTag("Peach");
+        GameObject[] watermelons = GameObject.FindGameObjectsWithTag("Watermelon");
 
-        if (peaches.Length == 0)
+        if (peaches.Length == 0 && watermelons.Length == 0)
         {
             levelEnded = true;
 
